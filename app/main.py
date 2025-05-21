@@ -1,6 +1,16 @@
+import os
+import logging
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.api import leads
+
+# Configurar logging para Railway
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+# Obtener puerto de Railway o usar 8000 como predeterminado
+port = int(os.environ.get("PORT", 8000))
+logger.info(f"Configurando la aplicación para ejecutarse en el puerto {port}")
 
 # Crear aplicación FastAPI
 app = FastAPI(
@@ -23,7 +33,12 @@ app.include_router(leads.router, prefix="/api/leads", tags=["leads"])
 
 @app.get("/")
 async def root():
-    return {"message": "Bienvenido a la API de Captura de Leads"}
+    logger.info("Endpoint raíz accedido - la aplicación está en funcionamiento")
+    return {
+        "message": "Bienvenido a la API de Captura de Leads",
+        "status": "online",
+        "version": "1.0.0"
+    }
 
 if __name__ == "__main__":
     import uvicorn
