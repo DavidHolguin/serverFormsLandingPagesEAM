@@ -2,7 +2,7 @@ import os
 import logging
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.api import leads
+from app.api import leads, conversations
 
 # Configurar logging para Railway
 logging.basicConfig(level=logging.INFO)
@@ -30,6 +30,7 @@ app.add_middleware(
 
 # Incluir routers
 app.include_router(leads.router, prefix="/api/leads", tags=["leads"])
+app.include_router(conversations.router, prefix="/api/conversations", tags=["conversations"])
 
 @app.get("/")
 async def root():

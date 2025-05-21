@@ -5,3 +5,4 @@ supabase==1.0.3
 pydantic[email]>=1.7.4,<2.0.0
 email-validator==2.0.0
 UUID==1.30
+openai>=1.0.0
