@@ -16,9 +16,14 @@ class ExtractedPersonalData(BaseModel):
     programa_interes: Optional[str] = None
     datos_adicionales: Optional[Dict[str, Any]] = None
     
+class LeadGroup(BaseModel):
+    telefono: str  # Identificador único del grupo
+    leads: List[ExtractedPersonalData]
+    
 class AnalyzeConversationResponse(BaseModel):
     success: bool
-    data: Optional[ExtractedPersonalData] = None
+    data: Optional[List[LeadGroup]] = None
     error: Optional[str] = None
     conversation_id: Optional[str] = None
     message_count: Optional[int] = None
+    total_leads_found: Optional[int] = None
